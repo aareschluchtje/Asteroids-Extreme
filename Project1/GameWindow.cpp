@@ -2,10 +2,15 @@
 
 #include "GameWindow.h"
 #include "GL\freeglut.h"
+#include <time.h>
 
 GameWindow::GameWindow()
 {
-	
+	srand(time(NULL));
+	for (int i = 0; i < 20; i++)
+	{
+		stars.push_back(Star(rand() % 1000 -500, rand() % 1000 -500, rand() % 1000 -500));
+	}
 }
 
 void GameWindow::Setup(int windowWidth, int windowHeight)
@@ -15,27 +20,39 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	glViewport(0, 0, windowWidth, windowHeight);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 100);
+	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 10000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//gluLookAt(0, 2, -5,
-	//	0, 0, 0,
-	//	0, 1, 0);
-	gluLookAt(rocket.location[0] , rocket.location[1] + 20, rocket.location[2]-50,
-		rocket.location[0], rocket.location[1], rocket.location[2],
+	gluLookAt(-rocket.location[0] + 50 * sin(rocket.rotation[1] / 180 * M_PI), -rocket.location[1] + 20 * sin(rocket.rotation[0] / 180  * M_PI), -rocket.location[2] + 50 * cos(rocket.rotation[1] / 180 * M_PI),
+		-rocket.location[0], -rocket.location[1], -rocket.location[2],
 		0, 1, 0);
 }
 
 void GameWindow::Draw()
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
+	glPolygonMode(GL_FRONT_AND_BACK, mode);
 	glPushMatrix();
-	glTranslatef(-rocket.location[0], rocket.location[1], -rocket.location[2]);
-	glRotatef(180 + rocket.rotation[1], 0, 1, 0);
+	for (Star star : stars)
+	{
+		glScalef(10, 10, 10);
+		glTranslatef(star.location[0], star.location[1], star.location[2]);
+		star.objmodel->draw();
+		glTranslatef(-star.location[0], -star.location[1], -star.location[2]);
+		glScalef(0.1f, 0.1f, 0.1f);
+	}
+	glTranslatef(-rocket.location[0], -rocket.location[1], -rocket.location[2]);
+	glRotatef(rocket.rotation[1], 0, 1, 0);
+	glRotatef(rocket.rotation[0], 1, 0, 0);
 	rocket.objModel.draw();
-	glTranslatef(rocket.location[0], -rocket.location[1], rocket.location[2]);
+	glTranslatef(rocket.location[0], rocket.location[1], rocket.location[2]);
+	glPopMatrix();
+	glPushMatrix();
+	glLoadIdentity();
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glRasterPos2i(50, 50);
+	glutBitmapCharacter(GLUT_BITMAP_8_BY_13, 65);
+	//const unsigned char *data = (const unsigned char *)"bleh";
 	glPopMatrix();
 	glFlush();
 

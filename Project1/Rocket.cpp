@@ -14,9 +14,9 @@ Rocket::Rocket(int x, int y, int z) : GameObject()
 void Rocket::Move()
 {
 	location[0] += speed * sin(rotation[1] / 180 * M_PI);
-	location[1] = 0;
-	location[2] += speed * cos(rotation[2] / 180 * M_PI);
-	std::cout << location[0] << location[1] << location[2] << endl;
+	location[1] += speed * sin(rotation[0] / 180 * M_PI);
+	location[2] += speed * cos(rotation[1] / 180 * M_PI);
+	std::cout << "x: " << location[0] << "y: " << location[1] << "z: " << location[2] << endl;
 }
 
 void Rocket::DriveForward()
@@ -34,14 +34,23 @@ void Rocket::Brake()
 
 void Rocket::TurnLeft()
 {
-	rotation[1] += 0.5;
+	rotation[1] += 1;
 }
 
 void Rocket::TurnRight()
 {
-	rotation[1] -= 0.5;
+	rotation[1] -= 1;
 }
 
+void Rocket::Up()
+{
+	rotation[0] += 1;
+}
+
+void Rocket::Down()
+{
+	rotation[0] -= 1;
+}
 
 Rocket::~Rocket()
 {

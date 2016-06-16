@@ -30,8 +30,11 @@ void Init(void)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHT0);
+	GLfloat ambient[4] = { 1, 1, 1, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	GLfloat position[4] = { 5, 0, 0, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	
 }
 
 void PaintComponent(void)
@@ -53,18 +56,40 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 	case 27:
 		exit(0);
 		break;
+	case 'W':
 	case 'w':
 		gameWindow->rocket.DriveForward();
 		break;
+	case 'A':
 	case 'a':
 		gameWindow->rocket.TurnLeft();
 		break;
+	case 'S':
 	case 's':
 		gameWindow->rocket.Brake();
 		break;
+	case 'D':
 	case 'd':
 		gameWindow->rocket.TurnRight();
 		break;
+	case 'Q':
+	case 'q':
+		gameWindow->rocket.Up();
+		break;
+	case 'Z':
+	case 'z':
+		gameWindow->rocket.Down();
+		break;
+	case 'T':
+	case 't':
+		if (gameWindow->mode != GL_LINE)
+		{
+			gameWindow->mode = GL_LINE;
+		}
+		else
+		{
+			gameWindow->mode = GL_FILL;
+		}
 	}
 }
 

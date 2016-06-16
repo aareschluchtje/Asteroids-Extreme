@@ -14,5 +14,7 @@ public:
 	void Brake();
 	void TurnLeft();
 	void TurnRight();
+	void Up();
+	void Down();
 	~Rocket();
 };

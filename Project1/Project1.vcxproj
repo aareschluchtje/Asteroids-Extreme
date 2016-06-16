@@ -19,20 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="Rocket.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroid.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="Rocket.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="UFO.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E6E624F6-149B-4D72-8282-656B4EC534E2}</ProjectGuid>
