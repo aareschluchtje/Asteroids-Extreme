@@ -8,5 +8,6 @@ class Star : public GameObject
 public:
 	ObjModel *objmodel = new ObjModel("models/star/star.obj");
 	Star(int,int,int);
+	void Move() override;
 	~Star();
 };

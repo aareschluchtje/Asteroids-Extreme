@@ -19,6 +19,10 @@ void SpecialKeyEvent(int, int, int);
 void Idle(void)
 {
 	gameWindow->rocket.Move();
+	for (int i = 0; i < gameWindow->asteroids.size(); i++)
+	{
+		gameWindow->asteroids[i].Move();
+	}
 	glutPostRedisplay();
 }
 
@@ -79,6 +83,9 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 	case 'Z':
 	case 'z':
 		gameWindow->rocket.Down();
+		break;
+	case ' ':
+		gameWindow->rocket.Teleport();
 		break;
 	case 'T':
 	case 't':

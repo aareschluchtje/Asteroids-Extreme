@@ -1,10 +1,11 @@
 #include "Star.h"
 
-Star::Star(int x, int y, int z) : GameObject()
+Star::Star(int x, int y, int z) : GameObject(x, y, z)
 {
-	location[0] = (float) x;
-	location[1] = (float) y;
-	location[2] = (float) z;
+}
+
+void Star::Move()
+{
 }
 
 Star::~Star()

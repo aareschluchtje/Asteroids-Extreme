@@ -1,6 +1,6 @@
 #include "UFO.h"
 
-UFO::UFO() : GameObject()
+UFO::UFO(int x, int y, int z) : GameObject(x, y, z)
 {
 }
 

@@ -4,11 +4,8 @@
 #include <math.h>
 #include <iostream>
 
-Rocket::Rocket(int x, int y, int z) : GameObject()
+Rocket::Rocket(int x, int y, int z) : GameObject(x, y, z)
 {
-	location[0] = x;
-	location[1] = y;
-	location[2] = z;
 }
 
 void Rocket::Move()
@@ -52,6 +49,14 @@ void Rocket::Down()
 	rotation[0] -= 1;
 }
 
+void Rocket::Teleport()
+{
+	location[0] = rand() % 1000 - 500;
+	location[1] = rand() % 1000 - 500;
+	location[2] = rand() % 1000 - 500;
+}
+
 Rocket::~Rocket()
 {
+	delete &objModel;
 }

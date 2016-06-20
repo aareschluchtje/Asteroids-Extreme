@@ -5,7 +5,6 @@
 class UFO : public GameObject
 {
 public:
-	UFO();
+	UFO(int, int, int);
 	~UFO();
 };
-

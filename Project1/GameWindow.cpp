@@ -9,7 +9,11 @@ GameWindow::GameWindow()
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
-		stars.push_back(Star(rand() % 1000 -500, rand() % 1000 -500, rand() % 1000 -500));
+		stars.push_back(Star(rand() % 10000 -5000, rand() % 10000 -5000, rand() % 10000 -5000));
+	}
+	for (int i = 0; i < 50; i++)
+	{
+		asteroids.push_back(Asteroid(rand() & 1000 - 500, rand() % 1000 - 500, rand() % 1000 - 500));
 	}
 }
 
@@ -24,7 +28,7 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(-rocket.location[0] + 50 * sin(rocket.rotation[1] / 180 * M_PI), -rocket.location[1] + 20 * sin(rocket.rotation[0] / 180  * M_PI), -rocket.location[2] + 50 * cos(rocket.rotation[1] / 180 * M_PI),
+	gluLookAt(-rocket.location[0] + 50 * sin(rocket.rotation[1] / 180 * M_PI), -rocket.location[1] + 20 * sin(rocket.rotation[0] / 180  * M_PI), -rocket.location[2] + 50 * cos(rocket.rotation[1] / 180 * M_PI) + 50 * cos(rocket.rotation[0] / 180 * M_PI),
 		-rocket.location[0], -rocket.location[1], -rocket.location[2],
 		0, 1, 0);
 }
@@ -32,20 +36,26 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 void GameWindow::Draw()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, mode);
-	glPushMatrix();
+	
 	for (Star star : stars)
 	{
-		glScalef(10, 10, 10);
+		glPushMatrix();
 		glTranslatef(star.location[0], star.location[1], star.location[2]);
+		glScalef(50, 50, 50);
 		star.objmodel->draw();
-		glTranslatef(-star.location[0], -star.location[1], -star.location[2]);
-		glScalef(0.1f, 0.1f, 0.1f);
+		glPopMatrix();
 	}
+	for (Asteroid asteroid : asteroids)
+	{
+		glPushMatrix();
+		asteroid.Draw();
+		glPopMatrix();
+	}
+	glPushMatrix();
 	glTranslatef(-rocket.location[0], -rocket.location[1], -rocket.location[2]);
 	glRotatef(rocket.rotation[1], 0, 1, 0);
 	glRotatef(rocket.rotation[0], 1, 0, 0);
 	rocket.objModel.draw();
-	glTranslatef(rocket.location[0], rocket.location[1], rocket.location[2]);
 	glPopMatrix();
 	glPushMatrix();
 	glLoadIdentity();
