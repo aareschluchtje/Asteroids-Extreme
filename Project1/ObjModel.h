@@ -97,4 +97,3 @@ public:
 
 	void draw();
 };
-

@@ -1,10 +1,14 @@
 #pragma once
 
 #include "GameObject.h"
+#include "ObjModel.h"
 
 class UFO : public GameObject
 {
 public:
 	UFO(int, int, int);
+	void Move();
 	~UFO();
+	ObjModel* objmodel = new ObjModel("models/UFO/UFO.obj");
+	int speed = 0;
 };

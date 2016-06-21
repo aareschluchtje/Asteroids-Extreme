@@ -23,6 +23,10 @@ void Idle(void)
 	{
 		gameWindow->asteroids[i].Move();
 	}
+	for (int i = 0; i < gameWindow->ufos.size(); i++)
+	{
+		gameWindow->ufos[i].Move();
+	}
 	glutPostRedisplay();
 }
 
@@ -34,11 +38,14 @@ void Init(void)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_BLEND);
 	GLfloat ambient[4] = { 1, 1, 1, 1 };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-	GLfloat position[4] = { 5, 0, 0, 0 };
+	GLfloat diffuse[4] = { 1, 1, 1, 1 };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	GLfloat position[4] = { 5, 5, 0, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void PaintComponent(void)

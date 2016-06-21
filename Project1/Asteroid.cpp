@@ -43,9 +43,9 @@ void Asteroid::Draw()
 	glRotatef(rotationOfObject[0], 1, 0, 0);
 	glRotatef(rotationOfObject[1], 0, 1, 0);
 	glRotatef(rotationOfObject[2], 0, 0, 1);
-	GLfloat ambient[3] = { 0.1,0.1,0.1};
+	GLfloat ambient[4] = { 0.1,0.1,0.1, 1.0};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
-	GLfloat diffuse[3] = { 0.54509803921f, 0.27058823529f, 0.07450980392f };
+	GLfloat diffuse[4] = { 0.54509803921f, 0.27058823529f, 0.07450980392f, 1.0};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_TRIANGLES);
