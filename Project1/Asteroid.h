@@ -11,7 +11,7 @@ public:
 	~Asteroid();
 	void Move() override;
 	void Draw();
-	float size;
+	int size;
 	std::vector<std::array<float,3>> vertices = std::vector<std::array<float, 3>>();
 	float speed = 0;
 	float rotationOfObject[3] = { 0,0,0 };

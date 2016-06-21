@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "ObjModel.h"
+#include "Laser.h"
 
 class Rocket : public GameObject
 {
@@ -17,5 +18,6 @@ public:
 	void Up();
 	void Down();
 	void Teleport();
+	Laser Shoot();
 	~Rocket();
 };

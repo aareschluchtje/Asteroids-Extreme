@@ -5,6 +5,7 @@
 #include "Star.h"
 #include "Asteroid.h"
 #include "UFO.h"
+#include "Laser.h"
 
 class GameWindow
 {
@@ -13,6 +14,7 @@ public:
 	vector<Star> stars = vector<Star>();
 	vector<Asteroid> asteroids = vector<Asteroid>();
 	vector<UFO> ufos = vector<UFO>();
+	vector<Laser> lasers = vector<Laser>();
 	Rocket rocket = Rocket(0, 0, 0);
 	GLint mode = GL_FILL;
 	GameWindow();

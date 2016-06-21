@@ -64,6 +64,15 @@ void GameWindow::Draw()
 		ufo.objmodel->draw();
 		glPopMatrix();
 	}
+	for (Laser laser : lasers)
+	{
+		glPushMatrix();
+		glTranslatef(-laser.location[0], -laser.location[1], -laser.location[2]);
+		glRotatef(rocket.rotation[1], 0, 1, 0);
+		glRotatef(rocket.rotation[1], 1, 0, 0);
+		laser.Draw();
+		glPopMatrix();
+	}
 	glPushMatrix();
 	glTranslatef(-rocket.location[0], -rocket.location[1], -rocket.location[2]);
 	glRotatef(rocket.rotation[1], 0, 1, 0);
@@ -72,7 +81,7 @@ void GameWindow::Draw()
 	glPopMatrix();
 	glPushMatrix();
 	glLoadIdentity();
-	GLfloat position[4] = { -rocket.location[0], -rocket.location[1], -rocket.location[2], 0 };
+	GLfloat position[4] = { -rocket.location[0], -rocket.location[1] + 10, -rocket.location[2], 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glRasterPos2i(50, 50);

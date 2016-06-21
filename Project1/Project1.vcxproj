@@ -22,6 +22,7 @@
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="Rocket.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="Rocket.h" />
     <ClInclude Include="Star.h" />

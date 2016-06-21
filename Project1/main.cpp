@@ -15,17 +15,22 @@ void PaintComponent(void);
 void Reshape(int, int);
 void KeyEvent(unsigned char, int, int);
 void SpecialKeyEvent(int, int, int);
+void MouseEvent(int, int, int, int);
 
 void Idle(void)
 {
 	gameWindow->rocket.Move();
-	for (int i = 0; i < gameWindow->asteroids.size(); i++)
+	for (unsigned int i = 0; i < gameWindow->asteroids.size(); i++)
 	{
 		gameWindow->asteroids[i].Move();
 	}
-	for (int i = 0; i < gameWindow->ufos.size(); i++)
+	for (unsigned int i = 0; i < gameWindow->ufos.size(); i++)
 	{
 		gameWindow->ufos[i].Move();
+	}
+	for (unsigned int i = 0; i < gameWindow->lasers.size(); i++)
+	{
+		gameWindow->lasers[i].Move();
 	}
 	glutPostRedisplay();
 }
@@ -117,6 +122,16 @@ void SpecialKeyEvent(int key, int mouseX, int mouseY)
 	}
 }
 
+void MouseEvent(int button, int state, int x, int y)
+{
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+		gameWindow->lasers.push_back(gameWindow->rocket.Shoot());
+		break;
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -129,6 +144,7 @@ int main(int argc, char *argv[])
 	glutReshapeFunc(Reshape);
 	glutKeyboardFunc(KeyEvent);
 	glutSpecialFunc(SpecialKeyEvent);
+	glutMouseFunc(MouseEvent);
 	Init();
 	gameWindow = new GameWindow();
 	glutMainLoop();

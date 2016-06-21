@@ -42,6 +42,9 @@
     <ClCompile Include="UFO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UFO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

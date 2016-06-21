@@ -10,17 +10,17 @@ Asteroid::Asteroid(int x, int y, int z) : GameObject(x, y, z)
 	size = rand() % 100 + 10;
 	for (int i = 0; i < size; i++)
 	{
-		std::array<float, 3> vertice = std::array<float, 3> {(float) sin(i  / (size/2) * M_PI)* size + (rand() % 10), (float) cos(i / (size / 2) * M_PI)* size + (rand() % 10), (float)-sin(i / (size / 2) * M_PI)* size + (rand() % 10)};
+		std::array<float, 3> vertice = std::array<float, 3> {(float) sin(i  / (size/2) * M_PI) * size + (rand() % 10), (float) cos(i / (size / 2) * M_PI)* size + (rand() % 10), (float)-sin(i / (size / 2) * M_PI)* size + (rand() % 10)};
 		vertices.push_back(vertice);
 	}
-	speed = rand() % 10;
+	speed = (float) (rand() % 10);
 	rotationSpeed = rand() % 10;
-	rotation[0] = rand() % 360;
-	rotation[1] = rand() % 360;
-	rotation[2] = rand() % 360;
-	rotationAngle[0] = rand() % 10;
-	rotationAngle[1] = rand() % 10;
-	rotationAngle[2] = rand() % 10;
+	rotation[0] = (float) (rand() % 360);
+	rotation[1] = (float) (rand() % 360);
+	rotation[2] = (float) (rand() % 360);
+	rotationAngle[0] = (float) (rand() % 10);
+	rotationAngle[1] = (float) (rand() % 10);
+	rotationAngle[2] = (float) (rand() % 10);
 }
 
 Asteroid::~Asteroid()
@@ -43,13 +43,13 @@ void Asteroid::Draw()
 	glRotatef(rotationOfObject[0], 1, 0, 0);
 	glRotatef(rotationOfObject[1], 0, 1, 0);
 	glRotatef(rotationOfObject[2], 0, 0, 1);
-	GLfloat ambient[4] = { 0.1,0.1,0.1, 1.0};
+	GLfloat ambient[4] = { 0.1f,0.1f,0.1f, 1.0f};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
-	GLfloat diffuse[4] = { 0.54509803921f, 0.27058823529f, 0.07450980392f, 1.0};
+	GLfloat diffuse[4] = { 0.54509803921f, 0.27058823529f, 0.07450980392f, 1.0f};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_TRIANGLES);
-	for (int i = 0; i < vertices.size(); i++)
+	for (unsigned int i = 0; i < vertices.size(); i++)
 	{
 		glVertex3f(vertices[i][0], vertices[i][1], vertices[i][2]);
 		glNormal3f(0, 0, -1);
