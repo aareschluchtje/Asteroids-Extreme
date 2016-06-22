@@ -19,14 +19,14 @@ void Rocket::Move()
 
 void Rocket::DriveForward()
 {
-	speed += 0.05f;
+	speed += 0.2f;
 }
 
 void Rocket::Brake()
 {
 	if (speed > 0)
 	{
-		speed -= 0.05f;
+		speed -= 0.2f;
 	}
 }
 
@@ -52,6 +52,7 @@ void Rocket::Down()
 
 void Rocket::Teleport()
 {
+	
 	location[0] = rand() % 1000 - 500;
 	location[1] = rand() % 1000 - 500;
 	location[2] = rand() % 1000 - 500;

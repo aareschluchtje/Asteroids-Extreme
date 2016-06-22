@@ -17,6 +17,7 @@ Laser::Laser(int x, int y, int z, int rx, int ry, int rz, int speed) : GameObjec
 	vertices.push_back(std::array<float, 3> {0, 1, -4});
 	vertices.push_back(std::array<float, 3> {0, 1, 4});
 	vertices.push_back(std::array<float, 3> {0, -1, 4});
+	Laser::speed += speed;
 }
 
 void Laser::Move()
@@ -24,11 +25,17 @@ void Laser::Move()
 	location[0] += speed * sin(rotation[1] / 180 * M_PI);
 	location[1] += speed * sin(rotation[0] / 180 * M_PI);
 	location[2] += speed * cos(rotation[1] / 180 * M_PI);
+	distanceTravelled += speed;
+	if (distanceTravelled > 100000)
+	{
+		selfdestruct = true;
+	}
 }
 
 void Laser::Draw()
 {
-	GLfloat emission[4] = { 0, 0, 1, 1 };
+	GLfloat emission[4] = { 1, 0, 0, 1 };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, emission);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emission);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_QUADS);

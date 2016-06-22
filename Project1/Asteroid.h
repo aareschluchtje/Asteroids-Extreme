@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include <vector>
 #include <array>
+#include "ObjModel.h"
 
 class Asteroid : public GameObject
 {
@@ -17,4 +18,7 @@ public:
 	float rotationOfObject[3] = { 0,0,0 };
 	int rotationSpeed = 0;
 	float rotationAngle[3] = { 0,0,0 };
+	GLfloat ambient[4] = { 0.1f,0.1f,0.1f, 1.0f };
+	GLfloat diffuse[4] = { 0.54509803921f, 0.27058823529f, 0.07450980392f, 1.0f };
+	GLfloat emission[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 };

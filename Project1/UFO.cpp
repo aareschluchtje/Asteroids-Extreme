@@ -13,6 +13,7 @@ void UFO::Move()
 {
 	location[0] += (float) speed * sin(rotation[1] / 180 * M_PI);
 	location[2] += (float) speed * cos(rotation[1] / 180 * M_PI);
+	rotationOfObject[1] += 1;
 }
 
 UFO::~UFO()

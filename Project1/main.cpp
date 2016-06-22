@@ -1,11 +1,13 @@
 #include "GL\freeglut.h"
 #include "GameWindow.h"
+#include <ctime>
 
 //variable
 
 GLint gameWindowInt;
 GameWindow *gameWindow = NULL;
 int windowWidth, windowHeight;
+int lastTime = time(NULL);
 
 //function prototypes
 
@@ -31,6 +33,20 @@ void Idle(void)
 	for (unsigned int i = 0; i < gameWindow->lasers.size(); i++)
 	{
 		gameWindow->lasers[i].Move();
+		if (gameWindow->lasers[i].selfdestruct)
+		{
+			gameWindow->lasers.erase(gameWindow->lasers.begin() + i);
+		}
+	}
+	if (lastTime != time(NULL))
+	{
+		lastTime = time(NULL);
+		gameWindow->fpsvalue = gameWindow->fpscounter;
+		gameWindow->fpscounter = 0;
+	}
+	else
+	{
+		gameWindow->fpscounter++;
 	}
 	glutPostRedisplay();
 }

@@ -1,8 +1,11 @@
 #pragma once
+
+#include <array>
+
 class GameObject
 {
 public:
-	double location[3];
+	std::array<float, 3> location;
 	float rotation[3] = { 0,0,0 };
 	GameObject(int, int, int);
 	~GameObject();

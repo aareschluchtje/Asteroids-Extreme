@@ -11,4 +11,5 @@ public:
 	~UFO();
 	ObjModel* objmodel = new ObjModel("models/UFO/UFO.obj");
 	int speed = 0;
+	float rotationOfObject[3] = { 0,0,0 };
 };

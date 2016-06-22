@@ -4,12 +4,15 @@
 #include "GL\freeglut.h"
 #include <time.h>
 
+void drawScore(int, int, int, std::array<float,3>);
+int HeightOfScreen = 0;
+
 GameWindow::GameWindow()
 {
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
-		stars.push_back(Star(rand() % 10000 -5000, rand() % 10000 -5000, rand() % 10000 -5000));
+		stars.push_back(Star((rand() % 10000 -5000) * 10, (rand() % 10000 -5000) * 10, (rand() % 10000 -5000) * 10));
 	}
 	for (int i = 0; i < 50; i++)
 	{
@@ -23,12 +26,13 @@ GameWindow::GameWindow()
 
 void GameWindow::Setup(int windowWidth, int windowHeight)
 {
+	HeightOfScreen = windowHeight;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glViewport(0, 0, windowWidth, windowHeight);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 10000);
+	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 1000000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -46,7 +50,7 @@ void GameWindow::Draw()
 	{
 		glPushMatrix();
 		glTranslatef(star.location[0], star.location[1], star.location[2]);
-		glScalef(50, 50, 50);
+		glScalef(200, 200, 200);
 		star.objmodel->draw();
 		glPopMatrix();
 	}
@@ -61,6 +65,9 @@ void GameWindow::Draw()
 		glPushMatrix();
 		glTranslatef(ufo.location[0], ufo.location[1], ufo.location[2]);
 		glScalef(10, 10, 10);
+		glRotatef(ufo.rotationOfObject[0], 1, 0, 0);
+		glRotatef(ufo.rotationOfObject[1], 0, 1, 0);
+		glRotatef(ufo.rotationOfObject[2], 0, 0, 1);
 		ufo.objmodel->draw();
 		glPopMatrix();
 	}
@@ -81,14 +88,53 @@ void GameWindow::Draw()
 	glPopMatrix();
 	glPushMatrix();
 	glLoadIdentity();
-	GLfloat position[4] = { -rocket.location[0], -rocket.location[1] + 10, -rocket.location[2], 0 };
+	GLfloat position[4] = { -rocket.location[0], -rocket.location[1] + 10, -rocket.location[2], 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glEnable(GL_COLOR_MATERIAL);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glRasterPos2i(50, 50);
-	glutBitmapCharacter(GLUT_BITMAP_8_BY_13, 65);
+	glOrtho(0, 4000, -50, 2000, 5, -5);
+	glMatrixMode(GL_MODELVIEW);
+	//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 65);
+	drawScore(rocket.speed, score, fpsvalue, rocket.location);
 	//const unsigned char *data = (const unsigned char *)"bleh";
+	glDisable(GL_COLOR_MATERIAL);
 	glPopMatrix();
 	glFlush();
-
+	fpscounter++;
 	glutSwapBuffers();
+}
+
+void drawScore(int speed, int score, int fps, array<float,3> location)
+{
+	glLoadIdentity();
+	string speedtext = "Speed: " + std::to_string(speed*10) + " Km/h";
+	for (int i = 0; i < speedtext.length(); i++)
+	{
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, speedtext[i]);
+	}
+	glLoadIdentity();
+	glTranslatef(0, 140, 0);
+	string scoretext = "Score: " + std::to_string(score);
+	for (int i = 0; i < scoretext.length(); i++)
+	{
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, scoretext[i]);
+	}
+	glLoadIdentity();
+	glTranslatef(0, 1800, 0);
+	string fpstext = std::to_string(fps);
+	for (int i = 0; i < fpstext.length(); i++)
+	{
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, fpstext[i]);
+	}
+	string locationtext = std::to_string((int)location[0]) + "," + std::to_string((int)location[1]) + "," + std::to_string((int)location[2]);
+	glLoadIdentity();
+	glTranslatef(4000 - locationtext.length() * 75, 0, 0);
+	for (int i = 0; i < locationtext.length(); i++)
+	{
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, locationtext[i]);
+	}
 }

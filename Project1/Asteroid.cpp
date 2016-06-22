@@ -3,13 +3,16 @@
 #include "Asteroid.h"
 #include <cstdlib>
 #include <math.h>
-#include "ObjModel.h"
 
 Asteroid::Asteroid(int x, int y, int z) : GameObject(x, y, z)
 {
 	size = rand() % 100 + 10;
 	for (int i = 0; i < size; i++)
 	{
+		for (int t = 0; t < size; t++)
+		{
+
+		}
 		std::array<float, 3> vertice = std::array<float, 3> {(float) sin(i  / (size/2) * M_PI) * size + (rand() % 10), (float) cos(i / (size / 2) * M_PI)* size + (rand() % 10), (float)-sin(i / (size / 2) * M_PI)* size + (rand() % 10)};
 		vertices.push_back(vertice);
 	}
@@ -43,10 +46,9 @@ void Asteroid::Draw()
 	glRotatef(rotationOfObject[0], 1, 0, 0);
 	glRotatef(rotationOfObject[1], 0, 1, 0);
 	glRotatef(rotationOfObject[2], 0, 0, 1);
-	GLfloat ambient[4] = { 0.1f,0.1f,0.1f, 1.0f};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
-	GLfloat diffuse[4] = { 0.54509803921f, 0.27058823529f, 0.07450980392f, 1.0f};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, Asteroid::ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, Asteroid::diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, Asteroid::emission);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_TRIANGLES);
 	for (unsigned int i = 0; i < vertices.size(); i++)

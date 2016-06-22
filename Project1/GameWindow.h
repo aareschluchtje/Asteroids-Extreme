@@ -16,6 +16,9 @@ public:
 	vector<UFO> ufos = vector<UFO>();
 	vector<Laser> lasers = vector<Laser>();
 	Rocket rocket = Rocket(0, 0, 0);
+	int score = 0;
+	int fpscounter = 0;
+	int fpsvalue = 0;
 	GLint mode = GL_FILL;
 	GameWindow();
 	void Setup(int,int);
