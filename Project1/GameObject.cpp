@@ -9,6 +9,8 @@ GameObject::GameObject(int x, int y, int z)
 	GameObject::location[2] = z;
 }
 
+
+
 GameObject::~GameObject()
 {
 }

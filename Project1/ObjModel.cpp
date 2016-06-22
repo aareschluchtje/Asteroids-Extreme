@@ -268,8 +268,8 @@ void ObjModel::loadMaterialFile(std::string fileName, std::string dirName)
 		{
 			currentMaterial->shininess[0] = std::stof(params[1]);
 		}
-		else
-			std::cout << "Didn't parse " << params[0] << " in material file" << std::endl;
+		//else
+			//std::cout << "Didn't parse " << params[0] << " in material file" << std::endl;
 	}
 	if (currentMaterial != NULL)
 		materials.push_back(currentMaterial);

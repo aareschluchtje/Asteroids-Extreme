@@ -13,8 +13,7 @@ void Rocket::Move()
 	location[0] += (float) speed * sin(rotation[1] / 180 * M_PI);
 	location[1] -= (float) speed * sin(rotation[0] / 180 * M_PI);
 	location[2] += (float) speed * cos((rotation[1] + rotation[0]) / 180 * M_PI);
-	std::cout << "rotation: " << rotation[0] << "speed: " << speed * cos((rotation[1] + rotation[0]) / 180 * M_PI) << endl;
-	//std::cout << "x: " << location[0] << "y: " << location[1] << "z: " << location[2] << endl;
+	//std::cout << "rotation: " << rotation[0] << "speed: " << speed * cos((rotation[1] + rotation[0]) / 180 * M_PI) << endl;
 }
 
 void Rocket::DriveForward()

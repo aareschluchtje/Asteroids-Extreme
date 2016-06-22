@@ -3,20 +3,25 @@
 #include "Asteroid.h"
 #include <cstdlib>
 #include <math.h>
+#include <iostream>
 
 Asteroid::Asteroid(int x, int y, int z) : GameObject(x, y, z)
 {
 	size = rand() % 100 + 10;
+	double sizeDividedByOne = 1.0 / (double) size;
 	for (int i = 0; i < size; i++)
 	{
 		for (int t = 0; t < size; t++)
 		{
-
+			std::array<double, 3> vertice = std::array<double, 3>();
+			vertice[0] = (double)size * sin(-M_PI_2 + M_PI * i * sizeDividedByOne) + (rand() % 10) / size;
+			vertice[1] = (double)size * cos(2.0 * (M_PI * t * sizeDividedByOne)) * sin((M_PI * i * sizeDividedByOne)) + (rand() % 10) / size;
+			vertice[2] = (double)size * (double)sin(2.0 * M_PI * t * sizeDividedByOne) * sin(M_PI * i * sizeDividedByOne) + (rand() % 10) / size;
+			//std::cout << (double)size * cos(2.0 * (M_PI * t * sizeDividedByOne)) * sin((M_PI * i * sizeDividedByOne)) << endl;
+			vertices.push_back(vertice);
 		}
-		std::array<float, 3> vertice = std::array<float, 3> {(float) sin(i  / (size/2) * M_PI) * size + (rand() % 10), (float) cos(i / (size / 2) * M_PI)* size + (rand() % 10), (float)-sin(i / (size / 2) * M_PI)* size + (rand() % 10)};
-		vertices.push_back(vertice);
 	}
-	speed = (float) (rand() % 10);
+	//speed = (float) (rand() % 10);
 	rotationSpeed = rand() % 10;
 	rotation[0] = (float) (rand() % 360);
 	rotation[1] = (float) (rand() % 360);
@@ -25,6 +30,27 @@ Asteroid::Asteroid(int x, int y, int z) : GameObject(x, y, z)
 	rotationAngle[1] = (float) (rand() % 10);
 	rotationAngle[2] = (float) (rand() % 10);
 }
+
+bool Asteroid::checkCollision(array<float, 3> point) {
+	float radius = size;
+
+	float distance = (-Asteroid::location[0] - point[0]) * (-Asteroid::location[0] - point[0]) +
+		(-Asteroid::location[1] - point[1]) * (-Asteroid::location[1] - point[1]) +
+		(-Asteroid::location[2] - point[2]) * (-Asteroid::location[2] - point[2]);
+	distance = sqrt(distance);
+	if (distance < radius)
+	{
+		selfdestruct = true;
+		std::cout << "selfdestruct" << endl;
+		return true;
+	}
+	else
+	{
+		//std::cout << distance << " " << radius << endl;
+		return false;
+	}
+}
+
 
 Asteroid::~Asteroid()
 {
@@ -50,7 +76,7 @@ void Asteroid::Draw()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, Asteroid::diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, Asteroid::emission);
 	glDisable(GL_TEXTURE_2D);
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_QUAD_STRIP);
 	for (unsigned int i = 0; i < vertices.size(); i++)
 	{
 		glVertex3f(vertices[i][0], vertices[i][1], vertices[i][2]);

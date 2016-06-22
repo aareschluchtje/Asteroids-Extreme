@@ -12,15 +12,15 @@ GameWindow::GameWindow()
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
-		stars.push_back(Star((rand() % 10000 -5000) * 10, (rand() % 10000 -5000) * 10, (rand() % 10000 -5000) * 10));
+		stars.push_back(Star((rand() % 10000 -5000) * 20, (rand() % 10000 -5000) * 20, (rand() % 10000 -5000) * 20));
 	}
 	for (int i = 0; i < 50; i++)
 	{
-		asteroids.push_back(Asteroid(rand() & 1000 - 500, rand() % 1000 - 500, rand() % 1000 - 500));
+		asteroids.push_back(Asteroid(rand() & 2000 - 1000, rand() % 2000 - 1000, rand() % 2000 - 1000));
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		ufos.push_back(UFO(rand() & 1000 - 500, rand() % 1000 - 500, rand() % 1000 - 500));
+		ufos.push_back(UFO(rand() & 10000 - 5000, rand() % 10000 - 5000, rand() % 10000 - 5000));
 	}
 }
 
@@ -35,7 +35,6 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 1000000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 	gluLookAt(-rocket.location[0] + 50 * sin(rocket.rotation[1] / 180 * M_PI), -rocket.location[1] + 20 * cos(rocket.rotation[0] / 180 * M_PI), -rocket.location[2] + 50 * cos(rocket.rotation[1] / 180 * M_PI) - 50 * sin(rocket.rotation[0] / 180 * M_PI),
 		-rocket.location[0], -rocket.location[1], -rocket.location[2],
 		0, 1, 0);
@@ -45,7 +44,6 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 void GameWindow::Draw()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, mode);
-	
 	for (Star star : stars)
 	{
 		glPushMatrix();
@@ -64,7 +62,7 @@ void GameWindow::Draw()
 	{
 		glPushMatrix();
 		glTranslatef(ufo.location[0], ufo.location[1], ufo.location[2]);
-		glScalef(10, 10, 10);
+		glScalef(20, 20, 20);
 		glRotatef(ufo.rotationOfObject[0], 1, 0, 0);
 		glRotatef(ufo.rotationOfObject[1], 0, 1, 0);
 		glRotatef(ufo.rotationOfObject[2], 0, 0, 1);

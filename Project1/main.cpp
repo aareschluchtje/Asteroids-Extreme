@@ -33,6 +33,14 @@ void Idle(void)
 	for (unsigned int i = 0; i < gameWindow->lasers.size(); i++)
 	{
 		gameWindow->lasers[i].Move();
+		for (unsigned int t = 0; t < gameWindow->asteroids.size(); t++)
+		{
+			if (gameWindow->asteroids[t].checkCollision(gameWindow->lasers[i].location))
+			{
+				gameWindow->score++;
+				gameWindow->asteroids.erase(gameWindow->asteroids.begin() + t);
+			}
+		}
 		if (gameWindow->lasers[i].selfdestruct)
 		{
 			gameWindow->lasers.erase(gameWindow->lasers.begin() + i);
