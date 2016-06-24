@@ -52,9 +52,9 @@ void Rocket::Down()
 void Rocket::Teleport()
 {
 	
-	location[0] = rand() % 1000 - 500;
-	location[1] = rand() % 1000 - 500;
-	location[2] = rand() % 1000 - 500;
+	location[0] = rand() % 10000 - 5000;
+	location[1] = rand() % 10000 - 5000;
+	location[2] = rand() % 10000 - 5000;
 }
 
 Laser Rocket::Shoot()

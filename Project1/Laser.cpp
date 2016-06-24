@@ -6,9 +6,9 @@
 
 Laser::Laser(int x, int y, int z, int rx, int ry, int rz, int speed) : GameObject(x,y,z)
 {
-	rotation[0] = rx;
+	rotation[0] = -rx;
 	rotation[1] = ry;
-	rotation[2] = rz;
+	rotation[2] = -rz;
 	vertices.push_back(std::array<float, 3> {-1, 0, -4});
 	vertices.push_back(std::array<float, 3> {1, 0, -4});
 	vertices.push_back(std::array<float, 3> {1, 0, 4});

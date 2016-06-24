@@ -4,7 +4,7 @@
 #include "GL\freeglut.h"
 #include <time.h>
 
-void drawScore(int, int, int, std::array<float,3>);
+void drawScore(float, int, int, std::array<float,3>, bool);
 int HeightOfScreen = 0;
 
 GameWindow::GameWindow()
@@ -97,7 +97,7 @@ void GameWindow::Draw()
 	glOrtho(0, 4000, -50, 2000, 5, -5);
 	glMatrixMode(GL_MODELVIEW);
 	//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 65);
-	drawScore(rocket.speed, score, fpsvalue, rocket.location);
+	drawScore(rocket.speed, score, fpsvalue, rocket.location, showFPS);
 	//const unsigned char *data = (const unsigned char *)"bleh";
 	glDisable(GL_COLOR_MATERIAL);
 	glPopMatrix();
@@ -106,10 +106,10 @@ void GameWindow::Draw()
 	glutSwapBuffers();
 }
 
-void drawScore(int speed, int score, int fps, array<float,3> location)
+void drawScore(float speed, int score, int fps, array<float,3> location, bool showFPS)
 {
 	glLoadIdentity();
-	string speedtext = "Speed: " + std::to_string(speed*10) + " Km/h";
+	string speedtext = "Speed: " + std::to_string((int) (speed*10)) + " Km/h";
 	for (int i = 0; i < speedtext.length(); i++)
 	{
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, speedtext[i]);
@@ -121,12 +121,15 @@ void drawScore(int speed, int score, int fps, array<float,3> location)
 	{
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, scoretext[i]);
 	}
-	glLoadIdentity();
-	glTranslatef(0, 1800, 0);
-	string fpstext = std::to_string(fps);
-	for (int i = 0; i < fpstext.length(); i++)
+	if (showFPS)
 	{
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, fpstext[i]);
+		glLoadIdentity();
+		glTranslatef(0, 1800, 0);
+		string fpstext = std::to_string(fps);
+		for (int i = 0; i < fpstext.length(); i++)
+		{
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, fpstext[i]);
+		}
 	}
 	string locationtext = std::to_string((int)location[0]) + "," + std::to_string((int)location[1]) + "," + std::to_string((int)location[2]);
 	glLoadIdentity();

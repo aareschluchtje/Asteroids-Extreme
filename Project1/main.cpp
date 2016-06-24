@@ -56,6 +56,13 @@ void Idle(void)
 	{
 		gameWindow->fpscounter++;
 	}
+	if (gameWindow->asteroids.size() < 1)
+	{
+		for (int i = 0; i < 50; i++)
+		{
+			gameWindow->asteroids.push_back(Asteroid(rand() & 2000 - 1000, rand() % 2000 - 1000, rand() % 2000 - 1000));
+		}
+	}
 	glutPostRedisplay();
 }
 
@@ -122,6 +129,10 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 		break;
 	case ' ':
 		gameWindow->rocket.Teleport();
+		break;
+	case 'F':
+	case 'f':
+		gameWindow->showFPS = !gameWindow->showFPS;
 		break;
 	case 'T':
 	case 't':

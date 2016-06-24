@@ -19,6 +19,7 @@ public:
 	int score = 0;
 	int fpscounter = 0;
 	int fpsvalue = 0;
+	bool showFPS = false;
 	GLint mode = GL_FILL;
 	GameWindow();
 	void Setup(int,int);
