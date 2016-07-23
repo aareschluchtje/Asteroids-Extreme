@@ -16,6 +16,7 @@ void Init(void);
 void PaintComponent(void);
 void Reshape(int, int);
 void KeyEvent(unsigned char, int, int);
+void KeyEventUp(unsigned char, int, int);
 void SpecialKeyEvent(int, int, int);
 void MouseEvent(int, int, int, int);
 
@@ -105,27 +106,27 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 		break;
 	case 'W':
 	case 'w':
-		gameWindow->rocket.DriveForward();
+		gameWindow->rocket.DriveForward(true);
 		break;
 	case 'A':
 	case 'a':
-		gameWindow->rocket.TurnLeft();
+		gameWindow->rocket.TurnLeft(true);
 		break;
 	case 'S':
 	case 's':
-		gameWindow->rocket.Brake();
+		gameWindow->rocket.Brake(true);
 		break;
 	case 'D':
 	case 'd':
-		gameWindow->rocket.TurnRight();
+		gameWindow->rocket.TurnRight(true);
 		break;
 	case 'Q':
 	case 'q':
-		gameWindow->rocket.Up();
+		gameWindow->rocket.Up(true);
 		break;
 	case 'Z':
 	case 'z':
-		gameWindow->rocket.Down();
+		gameWindow->rocket.Down(true);
 		break;
 	case ' ':
 		gameWindow->rocket.Teleport();
@@ -144,6 +145,37 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 		{
 			gameWindow->mode = GL_FILL;
 		}
+	}
+}
+
+void KeyEventUp(unsigned char key, int width, int height)
+{
+	switch (key)
+	{
+	case 'W':
+	case 'w':
+		gameWindow->rocket.DriveForward(false);
+		break;
+	case 'A':
+	case 'a':
+		gameWindow->rocket.TurnLeft(false);
+		break;
+	case 'S':
+	case 's':
+		gameWindow->rocket.Brake(false);
+		break;
+	case 'D':
+	case 'd':
+		gameWindow->rocket.TurnRight(false);
+		break;
+	case 'Q':
+	case 'q':
+		gameWindow->rocket.Up(false);
+		break;
+	case 'Z':
+	case 'z':
+		gameWindow->rocket.Down(false);
+		break;
 	}
 }
 
@@ -178,6 +210,7 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(PaintComponent);
 	glutReshapeFunc(Reshape);
 	glutKeyboardFunc(KeyEvent);
+	glutKeyboardUpFunc(KeyEventUp);
 	glutSpecialFunc(SpecialKeyEvent);
 	glutMouseFunc(MouseEvent);
 	Init();

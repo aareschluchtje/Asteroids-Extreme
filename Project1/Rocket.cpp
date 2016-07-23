@@ -14,39 +14,53 @@ void Rocket::Move()
 	location[1] -= (float) speed * sin(rotation[0] / 180 * M_PI);
 	location[2] += (float) speed * cos((rotation[1] + rotation[0]) / 180 * M_PI);
 	//std::cout << "rotation: " << rotation[0] << "speed: " << speed * cos((rotation[1] + rotation[0]) / 180 * M_PI) << endl;
-}
-
-void Rocket::DriveForward()
-{
-	speed += 0.2f;
-}
-
-void Rocket::Brake()
-{
-	if (speed > 0)
+	if(drivingForward)
+		speed += 0.2f;
+	if (braking)
 	{
-		speed -= 0.2f;
+		if (speed > 0)
+		{
+			speed -= 0.2f;
+		}
 	}
+	if(turningLeft)
+		rotation[1] += 1;
+	if(turningRight)
+		rotation[1] -= 1;
+	if (goingUp)
+		rotation[0] += 1;
+	if(goingDown)
+		rotation[0] -= 1;
 }
 
-void Rocket::TurnLeft()
+void Rocket::DriveForward(bool driving)
 {
-	rotation[1] += 1;
+	drivingForward = driving;
 }
 
-void Rocket::TurnRight()
+void Rocket::Brake(bool brake)
 {
-	rotation[1] -= 1;
+	braking = brake;
 }
 
-void Rocket::Up()
+void Rocket::TurnLeft(bool turning)
 {
-	rotation[0] += 1;
+	turningLeft = turning;
 }
 
-void Rocket::Down()
+void Rocket::TurnRight(bool turning)
 {
-	rotation[0] -= 1;
+	turningRight = turning;
+}
+
+void Rocket::Up(bool turning)
+{
+	goingUp = turning;
+}
+
+void Rocket::Down(bool turning)
+{
+	goingDown = turning;
 }
 
 void Rocket::Teleport()

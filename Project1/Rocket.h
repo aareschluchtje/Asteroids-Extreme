@@ -11,13 +11,20 @@ public:
 	float speed = 0;
 	Rocket(int,int,int);
 	void Move() override;
-	void DriveForward();
-	void Brake();
-	void TurnLeft();
-	void TurnRight();
-	void Up();
-	void Down();
+	void DriveForward(bool);
+	void Brake(bool);
+	void TurnLeft(bool);
+	void TurnRight(bool);
+	void Up(bool);
+	void Down(bool);
 	void Teleport();
 	Laser Shoot();
 	~Rocket();
+private:
+	bool drivingForward = false;
+	bool braking = false;
+	bool turningLeft = false;
+	bool turningRight = false;
+	bool goingUp = false;
+	bool goingDown = false;
 };
