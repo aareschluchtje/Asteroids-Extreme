@@ -35,10 +35,13 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	gluPerspective(90, (float)windowWidth / windowHeight, 0.1, 1000000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(-rocket.location[0] + 50 * sin(rocket.rotation[1] / 180 * M_PI), -rocket.location[1] + 20 * cos(rocket.rotation[0] / 180 * M_PI), -rocket.location[2] + 50 * cos(rocket.rotation[1] / 180 * M_PI) - 50 * sin(rocket.rotation[0] / 180 * M_PI),
-		-rocket.location[0], -rocket.location[1], -rocket.location[2],
+	gluLookAt(0, 0, 0,
+		0, 0, 1,
 		0, 1, 0);
-		//0, cos(rocket.rotation[0] / 180 * M_PI) * 10, -cos(rocket.rotation[0] / 180 * M_PI) * 10);
+	glRotatef(rocket.rotation[0] - 20, 1, 0, 0);
+	glRotatef(-rocket.rotation[1] - 180, 0, 1, 0);
+	glRotatef(rocket.rotation[2], 1, 0, 1);
+	glTranslatef(rocket.location[0], rocket.location[1] - 30, rocket.location[2] - 10);
 }
 
 void GameWindow::Draw()
@@ -89,18 +92,9 @@ void GameWindow::Draw()
 	GLfloat position[4] = { -rocket.location[0], -rocket.location[1] + 10, -rocket.location[2], 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glEnable(GL_COLOR_MATERIAL);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glOrtho(0, 4000, -50, 2000, 5, -5);
-	glMatrixMode(GL_MODELVIEW);
-	//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 65);
+	
 	drawScore(rocket.speed, score, fpsvalue, rocket.location, showFPS);
-	//const unsigned char *data = (const unsigned char *)"bleh";
-	glDisable(GL_COLOR_MATERIAL);
-	glPopMatrix();
+	
 	glFlush();
 	fpscounter++;
 	glutSwapBuffers();
@@ -108,6 +102,13 @@ void GameWindow::Draw()
 
 void drawScore(float speed, int score, int fps, array<float,3> location, bool showFPS)
 {
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glEnable(GL_COLOR_MATERIAL);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glOrtho(0, 4000, -50, 2000, 5, -5);
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	string speedtext = "Speed: " + std::to_string((int) (speed*10)) + " Km/h";
 	for (int i = 0; i < speedtext.length(); i++)
@@ -138,4 +139,6 @@ void drawScore(float speed, int score, int fps, array<float,3> location, bool sh
 	{
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, locationtext[i]);
 	}
+	glDisable(GL_COLOR_MATERIAL);
+	glPopMatrix();
 }
