@@ -21,7 +21,7 @@ Asteroid::Asteroid(int x, int y, int z) : GameObject(x, y, z)
 			vertices.push_back(vertice);
 		}
 	}
-	//speed = (float) (rand() % 10);
+	speed = ((float) (rand() % 10)) / 20;
 	rotationSpeed = rand() % 10;
 	rotation[0] = (float) (rand() % 360);
 	rotation[1] = (float) (rand() % 360);
@@ -56,14 +56,14 @@ Asteroid::~Asteroid()
 {
 }
 
-void Asteroid::Move()
+void Asteroid::Move(int elapsedtime)
 {
-	location[0] += speed * sin(rotation[1] / 180 * M_PI);
-	location[1] += speed * sin(rotation[0] / 180 * M_PI);
-	location[2] += speed * cos(rotation[1] / 180 * M_PI);
-	rotationOfObject[0] += (rotationSpeed * rotationAngle[0]) / 100;
-	rotationOfObject[1] += (rotationSpeed * rotationAngle[1]) / 100;
-	rotationOfObject[2] += (rotationSpeed * rotationAngle[2]) / 100;
+	location[0] += (speed * elapsedtime) * sin(rotation[1] / 180 * M_PI);
+	location[1] += (speed * elapsedtime) * sin(rotation[0] / 180 * M_PI);
+	location[2] += (speed * elapsedtime) * cos(rotation[1] / 180 * M_PI);
+	rotationOfObject[0] += (rotationSpeed * elapsedtime * rotationAngle[0]) / 1000;
+	rotationOfObject[1] += (rotationSpeed * elapsedtime * rotationAngle[1]) / 1000;
+	rotationOfObject[2] += (rotationSpeed * elapsedtime * rotationAngle[2]) / 1000;
 }
 
 void Asteroid::Draw()

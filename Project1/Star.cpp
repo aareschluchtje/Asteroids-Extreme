@@ -4,7 +4,7 @@ Star::Star(int x, int y, int z) : GameObject(x, y, z)
 {
 }
 
-void Star::Move()
+void Star::Move(int elapsedtime)
 {
 }
 

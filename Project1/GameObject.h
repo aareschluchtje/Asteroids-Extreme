@@ -9,6 +9,6 @@ public:
 	float rotation[3] = { 0,0,0 };
 	GameObject(int, int, int);
 	~GameObject();
-	virtual void Move() = 0;
+	virtual void Move(int elapsedtime) = 0;
 };
 

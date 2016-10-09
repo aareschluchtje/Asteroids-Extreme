@@ -22,18 +22,18 @@ void MouseEvent(int, int, int, int);
 
 void Idle(void)
 {
-	gameWindow->rocket.Move();
+	gameWindow->rocket.Move(gameWindow->elapsedTime);
 	for (unsigned int i = 0; i < gameWindow->asteroids.size(); i++)
 	{
-		gameWindow->asteroids[i].Move();
+		gameWindow->asteroids[i].Move(gameWindow->elapsedTime);
 	}
 	for (unsigned int i = 0; i < gameWindow->ufos.size(); i++)
 	{
-		gameWindow->ufos[i].Move();
+		gameWindow->ufos[i].Move(gameWindow->elapsedTime);
 	}
 	for (unsigned int i = 0; i < gameWindow->lasers.size(); i++)
 	{
-		gameWindow->lasers[i].Move();
+		gameWindow->lasers[i].Move(gameWindow->elapsedTime);
 		for (unsigned int t = 0; t < gameWindow->asteroids.size(); t++)
 		{
 			if (gameWindow->asteroids[t].checkCollision(gameWindow->lasers[i].location))
@@ -64,6 +64,9 @@ void Idle(void)
 			gameWindow->asteroids.push_back(Asteroid(rand() & 2000 - 1000, rand() % 2000 - 1000, rand() % 2000 - 1000));
 		}
 	}
+	int timenow = glutGet(GLUT_ELAPSED_TIME);
+	gameWindow->elapsedTime = timenow - gameWindow->lastTime;
+	gameWindow->lastTime = timenow;
 	glutPostRedisplay();
 }
 

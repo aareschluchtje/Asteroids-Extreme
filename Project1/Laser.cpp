@@ -20,11 +20,11 @@ Laser::Laser(int x, int y, int z, int rx, int ry, int rz, int speed) : GameObjec
 	Laser::speed += speed;
 }
 
-void Laser::Move()
+void Laser::Move(int elapsedtime)
 {
-	location[0] += speed * sin(rotation[1] / 180 * M_PI);
-	location[1] += speed * sin(rotation[0] / 180 * M_PI);
-	location[2] += speed * cos(rotation[1] / 180 * M_PI);
+	location[0] += (speed * elapsedtime) * sin(rotation[1] / 180 * M_PI);
+	location[1] += (speed * elapsedtime) * sin(rotation[0] / 180 * M_PI);
+	location[2] += (speed * elapsedtime) * cos(rotation[1] / 180 * M_PI);
 	distanceTravelled += speed;
 	if (distanceTravelled > 100000)
 	{

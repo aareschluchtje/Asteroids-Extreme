@@ -38,10 +38,11 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	gluLookAt(0, 0, 0,
 		0, 0, 1,
 		0, 1, 0);
+	glTranslatef(0, -10, 50);
 	glRotatef(rocket.rotation[0] - 20, 1, 0, 0);
 	glRotatef(-rocket.rotation[1] - 180, 0, 1, 0);
-	glRotatef(rocket.rotation[2], 1, 0, 1);
-	glTranslatef(rocket.location[0], rocket.location[1] - 30, rocket.location[2] - 10);
+	glRotatef(rocket.rotation[2], 0, 0, 1);
+	glTranslatef(rocket.location[0], rocket.location[1], rocket.location[2]);
 }
 
 void GameWindow::Draw()
@@ -76,8 +77,9 @@ void GameWindow::Draw()
 	{
 		glPushMatrix();
 		glTranslatef(-laser.location[0], -laser.location[1], -laser.location[2]);
-		glRotatef(rocket.rotation[1], 0, 1, 0);
-		glRotatef(rocket.rotation[1], 1, 0, 0);
+		glRotatef(laser.rotation[0], 1, 0, 0);
+		glRotatef(laser.rotation[1], 0, 1, 0);
+		glRotatef(laser.rotation[2], 0, 0, 1);
 		laser.Draw();
 		glPopMatrix();
 	}
@@ -110,7 +112,7 @@ void drawScore(float speed, int score, int fps, array<float,3> location, bool sh
 	glOrtho(0, 4000, -50, 2000, 5, -5);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	string speedtext = "Speed: " + std::to_string((int) (speed*10)) + " Km/h";
+	string speedtext = "Speed: " + std::to_string((int) (speed*10000)) + " Km/h";
 	for (int i = 0; i < speedtext.length(); i++)
 	{
 		glutStrokeCharacter(GLUT_STROKE_ROMAN, speedtext[i]);

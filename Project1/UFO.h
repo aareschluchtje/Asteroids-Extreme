@@ -7,7 +7,7 @@ class UFO : public GameObject
 {
 public:
 	UFO(int, int, int);
-	void Move();
+	void Move(int elapsedtime) override;
 	~UFO();
 	ObjModel* objmodel = new ObjModel("models/UFO/UFO.obj");
 	int speed = 0;

@@ -8,29 +8,29 @@ Rocket::Rocket(int x, int y, int z) : GameObject(x, y, z)
 {
 }
 
-void Rocket::Move()
+void Rocket::Move(int elapsedtime)
 {
-	location[0] += (float) speed * sin(rotation[1] / 180 * M_PI);
-	location[1] -= (float) speed * sin(rotation[0] / 180 * M_PI);
-	location[2] += (float) speed * cos((rotation[1] + rotation[0]) / 180 * M_PI);
+	location[0] += (float) speed * elapsedtime * sin(rotation[1] / 180 * M_PI);
+	location[1] -= (float) speed * elapsedtime * sin(rotation[0] / 180 * M_PI);
+	location[2] += (float) speed * elapsedtime * cos((rotation[1] + rotation[0]) / 180 * M_PI);
 	//std::cout << "rotation: " << rotation[0] << "speed: " << speed * cos((rotation[1] + rotation[0]) / 180 * M_PI) << endl;
 	if(drivingForward)
-		speed += 0.2f;
+		speed += 0.001f;
 	if (braking)
 	{
 		if (speed > 0)
 		{
-			speed -= 0.2f;
+			speed -= 0.001f;
 		}
 	}
 	if(turningLeft)
-		rotation[1] += 1;
+		rotation[1] += 0.1f * elapsedtime;
 	if(turningRight)
-		rotation[1] -= 1;
+		rotation[1] -= 0.1f * elapsedtime;
 	if (goingUp)
-		rotation[0] += 1;
+		rotation[0] += 0.1f * elapsedtime;
 	if(goingDown)
-		rotation[0] -= 1;
+		rotation[0] -= 0.1f * elapsedtime;
 }
 
 void Rocket::DriveForward(bool driving)

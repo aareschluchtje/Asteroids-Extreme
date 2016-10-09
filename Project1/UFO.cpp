@@ -9,11 +9,11 @@ UFO::UFO(int x, int y, int z) : GameObject(x, y, z)
 	speed = rand() % 10;
 }
 
-void UFO::Move()
+void UFO::Move(int elapsedtime)
 {
-	location[0] += (float) speed * sin(rotation[1] / 180 * M_PI);
-	location[2] += (float) speed * cos(rotation[1] / 180 * M_PI);
-	rotationOfObject[1] += 1;
+	location[0] += (float) (speed * elapsedtime) * sin(rotation[1] / 180 * M_PI);
+	location[2] += (float) (speed * elapsedtime) * cos(rotation[1] / 180 * M_PI);
+	rotationOfObject[1] += (1 * elapsedtime);
 }
 
 UFO::~UFO()

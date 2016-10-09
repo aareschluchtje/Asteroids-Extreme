@@ -11,7 +11,7 @@ public:
 	Asteroid(int, int, int);
 	~Asteroid();
 	bool checkCollision(array<float,3>);
-	void Move() override;
+	void Move(int elapsedtime) override;
 	void Draw();
 	int size;
 	std::vector<std::array<double,3>> vertices = std::vector<std::array<double, 3>>();

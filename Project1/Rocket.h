@@ -10,7 +10,7 @@ public:
 	ObjModel objModel = ObjModel("models/ship/shipA_OBJ.obj");
 	float speed = 0;
 	Rocket(int,int,int);
-	void Move() override;
+	void Move(int elapsedtime) override;
 	void DriveForward(bool);
 	void Brake(bool);
 	void TurnLeft(bool);
