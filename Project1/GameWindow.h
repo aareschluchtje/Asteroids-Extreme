@@ -6,6 +6,8 @@
 #include "Asteroid.h"
 #include "UFO.h"
 #include "Laser.h"
+#include "Sound.h"
+#include "SoundTest.h"
 
 class GameWindow
 {
@@ -16,6 +18,9 @@ public:
 	vector<UFO> ufos = vector<UFO>();
 	vector<Laser> lasers = vector<Laser>();
 	Rocket rocket = Rocket(0, 0, 0);
+	SoundTest test = SoundTest();
+	Sound *music = nullptr;
+	Sound *laser = nullptr;
 	int elapsedTime = 0;
 	int lastTime = 0;
 	int score = 0;
@@ -25,5 +30,6 @@ public:
 	GLint mode = GL_FILL;
 	GameWindow();
 	void Setup(int,int);
+	void PlayMusic(void);
 	void Draw();
 };

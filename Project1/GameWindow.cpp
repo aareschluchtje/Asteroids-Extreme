@@ -9,6 +9,8 @@ int HeightOfScreen = 0;
 
 GameWindow::GameWindow()
 {
+	music = test.LoadSound("Sound/HexagonForce.wav");
+	laser = test.LoadSound("Sound/Laser_Gun.wav");
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
@@ -22,6 +24,8 @@ GameWindow::GameWindow()
 	{
 		ufos.push_back(UFO(rand() & 10000 - 5000, rand() % 10000 - 5000, rand() % 10000 - 5000));
 	}
+	//music->Play();
+	laser->Play();
 }
 
 void GameWindow::Setup(int windowWidth, int windowHeight)
@@ -43,6 +47,11 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	glRotatef(-rocket.rotation[1] - 180, 0, 1, 0);
 	glRotatef(rocket.rotation[2], 0, 0, 1);
 	glTranslatef(rocket.location[0], rocket.location[1], rocket.location[2]);
+}
+
+void GameWindow::PlayMusic(void)
+{
+	music->Play();
 }
 
 void GameWindow::Draw()

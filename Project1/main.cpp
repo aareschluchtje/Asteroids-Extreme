@@ -131,6 +131,10 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 	case 'z':
 		gameWindow->rocket.Down(true);
 		break;
+	case 'M':
+	case 'm':
+		gameWindow->PlayMusic();
+		break;
 	case ' ':
 		gameWindow->rocket.Teleport();
 		break;
@@ -197,6 +201,7 @@ void MouseEvent(int button, int state, int x, int y)
 	switch (button)
 	{
 	case GLUT_LEFT_BUTTON:
+		gameWindow->laser->Play();
 		gameWindow->lasers.push_back(gameWindow->rocket.Shoot());
 		break;
 	}
