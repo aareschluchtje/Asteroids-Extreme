@@ -9,8 +9,8 @@ int HeightOfScreen = 0;
 
 GameWindow::GameWindow()
 {
-	music = test.LoadSound("Sound/HexagonForce.wav");
-	laser = test.LoadSound("Sound/Laser_Gun.wav");
+	music = test.LoadSound("Sound/OdeToJoy(Remix).wav");
+	laser = test.LoadSound("Sound/Laser_Gun(short).wav");
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
@@ -24,7 +24,7 @@ GameWindow::GameWindow()
 	{
 		ufos.push_back(UFO(rand() & 10000 - 5000, rand() % 10000 - 5000, rand() % 10000 - 5000));
 	}
-	//music->Play();
+	music->Play();
 	laser->Play();
 }
 
