@@ -14,7 +14,7 @@ class SoundTest
 public:
 	SoundTest();
 	Sound* LoadSound(char*);
-	int endWithError(char*, int = 0);
+	void printError(char*, int = 0);
 	~SoundTest();
 private:
 	ALCdevice *device;

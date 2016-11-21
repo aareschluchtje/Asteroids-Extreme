@@ -7,7 +7,7 @@ SoundTest::SoundTest() :
 	device = alcOpenDevice(nullptr);
 	if (!device)
 	{
-		endWithError("no sound device");
+		printError("no sound device");
 		return;
 	}
 
@@ -15,7 +15,7 @@ SoundTest::SoundTest() :
 	alcMakeContextCurrent(context);
 	if (!context)
 	{
-		endWithError("no sound context");
+		printError("no sound context");
 		return;
 	}
 }
@@ -32,25 +32,27 @@ Sound* SoundTest::LoadSound(char* path)
 	DWORD datasize;
 
 	fread(type, sizeof(char), 4, fp);
-	if (strcmp(type, "RIFF") == 0)
+	string typecompare = string(type + '\0').substr(0,4);
+	if (typecompare.compare("RIFF") != 0)
 	{
-		endWithError("No RIFF");
+		printError("No RIFF");
 		return new Sound(0,0);
 	}
-		
 	
 	fread(&size, sizeof(DWORD), 1, fp);
 	fread(type, sizeof(char), 4, fp);
-	if (strcmp(type, "WAVE") == 0)
+	typecompare = string(type + '\0').substr(0, 4);
+	if (typecompare.compare("WAVE") != 0)
 	{
-		endWithError("not WAVE");
+		printError("not WAVE");
 		return new Sound(0, 0);
 	}
 
 	fread(type, sizeof(char), 4, fp);
-	if (strcmp(type, "fmt ") == 0)
+	typecompare = string(type + '\0').substr(0, 4);
+	if (typecompare.compare("fmt ") != 0)
 	{
-		endWithError("not fmt ");
+		printError("not fmt ");
 		return new Sound(0, 0);
 	}
 
@@ -63,9 +65,10 @@ Sound* SoundTest::LoadSound(char* path)
 	fread(&bitsPerSample, sizeof(short), 1, fp);
 
 	fread(type, sizeof(char), 4, fp);
-	if (strcmp(type, "data") == 0)
+	typecompare = string(type + '\0').substr(0, 4);
+	if (typecompare.compare("data") != 0)
 	{
-		endWithError("Missing DATA");
+		printError("Missing DATA");
 		return new Sound(0, 0);
 	}
 
@@ -132,11 +135,9 @@ Sound* SoundTest::LoadSound(char* path)
 	return sound;
 }
 
-int SoundTest::endWithError(char* msg, int error)
+void SoundTest::printError(char* msg, int error)
 {
 	cout << msg << "\n";
-	system("PAUSE");
-	return error;
 }
 
 SoundTest::~SoundTest()
