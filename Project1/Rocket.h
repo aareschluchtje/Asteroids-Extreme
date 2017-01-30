@@ -7,7 +7,7 @@
 class Rocket : public GameObject
 {
 public:
-	ObjModel objModel = ObjModel("models/ship/shipA_OBJ.obj");
+	ObjModel objModel = ObjModel("models/ship/NewShip.obj");
 	float speed = 0;
 	Rocket(int,int,int);
 	void Move(int elapsedtime) override;

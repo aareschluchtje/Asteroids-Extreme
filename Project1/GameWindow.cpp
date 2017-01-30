@@ -9,23 +9,7 @@ int HeightOfScreen = 0;
 
 GameWindow::GameWindow()
 {
-	music = test.LoadSound("Sound/OdeToJoy(Remix).wav");
-	laser = test.LoadSound("Sound/Laser_Gun(short).wav");
-	srand(time(NULL));
-	for (int i = 0; i < 20; i++)
-	{
-		stars.push_back(Star((rand() % 10000 -5000) * 20, (rand() % 10000 -5000) * 20, (rand() % 10000 -5000) * 20));
-	}
-	for (int i = 0; i < 50; i++)
-	{
-		asteroids.push_back(Asteroid(rand() & 2000 - 1000, rand() % 2000 - 1000, rand() % 2000 - 1000));
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		ufos.push_back(UFO(rand() & 10000 - 5000, rand() % 10000 - 5000, rand() % 10000 - 5000));
-	}
-	music->Play();
-	laser->Play();
+	Space::Instance();
 }
 
 void GameWindow::Setup(int windowWidth, int windowHeight)
@@ -42,22 +26,17 @@ void GameWindow::Setup(int windowWidth, int windowHeight)
 	gluLookAt(0, 0, 0,
 		0, 0, 1,
 		0, 1, 0);
-	glTranslatef(0, -10, 50);
-	glRotatef(rocket.rotation[0] - 20, 1, 0, 0);
-	glRotatef(-rocket.rotation[1] - 180, 0, 1, 0);
-	glRotatef(rocket.rotation[2], 0, 0, 1);
-	glTranslatef(rocket.location[0], rocket.location[1], rocket.location[2]);
-}
-
-void GameWindow::PlayMusic(void)
-{
-	music->Play();
+	glTranslatef(0, -2, 20);
+	glRotatef(Space::Instance()->rocket.rotation[0] - 20, 1, 0, 0);
+	glRotatef(-Space::Instance()->rocket.rotation[1] - 180, 0, 1, 0);
+	glRotatef(Space::Instance()->rocket.rotation[2], 0, 0, 1);
+	glTranslatef(Space::Instance()->rocket.location[0], Space::Instance()->rocket.location[1], Space::Instance()->rocket.location[2]);
 }
 
 void GameWindow::Draw()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, mode);
-	for (Star star : stars)
+	for (Star star : Space::Instance()->stars)
 	{
 		glPushMatrix();
 		glTranslatef(star.location[0], star.location[1], star.location[2]);
@@ -65,13 +44,13 @@ void GameWindow::Draw()
 		star.objmodel->draw();
 		glPopMatrix();
 	}
-	for (Asteroid asteroid : asteroids)
+	for (Asteroid asteroid : Space::Instance()->asteroids)
 	{
 		glPushMatrix();
 		asteroid.Draw();
 		glPopMatrix();
 	}
-	for (UFO ufo : ufos)
+	for (UFO ufo : Space::Instance()->ufos)
 	{
 		glPushMatrix();
 		glTranslatef(ufo.location[0], ufo.location[1], ufo.location[2]);
@@ -82,7 +61,7 @@ void GameWindow::Draw()
 		ufo.objmodel->draw();
 		glPopMatrix();
 	}
-	for (Laser laser : lasers)
+	for (Laser laser : Space::Instance()->lasers)
 	{
 		glPushMatrix();
 		glTranslatef(-laser.location[0], -laser.location[1], -laser.location[2]);
@@ -93,18 +72,18 @@ void GameWindow::Draw()
 		glPopMatrix();
 	}
 	glPushMatrix();
-	glTranslatef(-rocket.location[0], -rocket.location[1], -rocket.location[2]);
-	glRotatef(rocket.rotation[1], 0, 1, 0);
-	glRotatef(rocket.rotation[0], 1, 0, 0);
-	rocket.objModel.draw();
+	glTranslatef(-Space::Instance()->rocket.location[0], -Space::Instance()->rocket.location[1], -Space::Instance()->rocket.location[2]);
+	glRotatef(Space::Instance()->rocket.rotation[1], 0, 1, 0);
+	glRotatef(Space::Instance()->rocket.rotation[0], 1, 0, 0);
+	Space::Instance()->rocket.objModel.draw();
 	glPopMatrix();
 	glPushMatrix();
 	glLoadIdentity();
-	GLfloat position[4] = { -rocket.location[0], -rocket.location[1] + 10, -rocket.location[2], 0};
+	GLfloat position[4] = { -Space::Instance()->rocket.location[0], -Space::Instance()->rocket.location[1] + 10, -Space::Instance()->rocket.location[2], 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glPopMatrix();
 	
-	drawScore(rocket.speed, score, fpsvalue, rocket.location, showFPS);
+	drawScore(Space::Instance()->rocket.speed, Space::Instance()->score, fpsvalue, Space::Instance()->rocket.location, showFPS);
 	
 	glFlush();
 	fpscounter++;

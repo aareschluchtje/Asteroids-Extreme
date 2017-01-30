@@ -187,7 +187,6 @@ void ObjModel::draw()
 			}
 		}
 		glEnd();
-
 	}
 }
 

@@ -9,12 +9,15 @@ class Asteroid : public GameObject
 {
 public:
 	Asteroid(int, int, int);
+	int AddVertex(std::array<double, 3> point);
+	double getMiddlePoint(double p1, double p2);
 	~Asteroid();
 	bool checkCollision(array<float,3>);
 	void Move(int elapsedtime) override;
 	void Draw();
-	int size;
+	float size;
 	std::vector<std::array<double,3>> vertices = std::vector<std::array<double, 3>>();
+	std::vector<std::array<double, 3>> faces = std::vector<std::array<double, 3>>();
 	float speed = 0;
 	float rotationOfObject[3] = { 0,0,0 };
 	int rotationSpeed = 0;

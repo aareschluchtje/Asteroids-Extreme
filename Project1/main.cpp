@@ -22,31 +22,7 @@ void MouseEvent(int, int, int, int);
 
 void Idle(void)
 {
-	gameWindow->rocket.Move(gameWindow->elapsedTime);
-	for (unsigned int i = 0; i < gameWindow->asteroids.size(); i++)
-	{
-		gameWindow->asteroids[i].Move(gameWindow->elapsedTime);
-	}
-	for (unsigned int i = 0; i < gameWindow->ufos.size(); i++)
-	{
-		gameWindow->ufos[i].Move(gameWindow->elapsedTime);
-	}
-	for (unsigned int i = 0; i < gameWindow->lasers.size(); i++)
-	{
-		gameWindow->lasers[i].Move(gameWindow->elapsedTime);
-		for (unsigned int t = 0; t < gameWindow->asteroids.size(); t++)
-		{
-			if (gameWindow->asteroids[t].checkCollision(gameWindow->lasers[i].location))
-			{
-				gameWindow->score++;
-				gameWindow->asteroids.erase(gameWindow->asteroids.begin() + t);
-			}
-		}
-		if (gameWindow->lasers[i].selfdestruct)
-		{
-			gameWindow->lasers.erase(gameWindow->lasers.begin() + i);
-		}
-	}
+	Space::Instance()->Idle();
 	if (lastTime != time(NULL))
 	{
 		lastTime = time(NULL);
@@ -57,16 +33,9 @@ void Idle(void)
 	{
 		gameWindow->fpscounter++;
 	}
-	if (gameWindow->asteroids.size() < 1)
-	{
-		for (int i = 0; i < 50; i++)
-		{
-			gameWindow->asteroids.push_back(Asteroid(rand() & 2000 - 1000, rand() % 2000 - 1000, rand() % 2000 - 1000));
-		}
-	}
 	int timenow = glutGet(GLUT_ELAPSED_TIME);
-	gameWindow->elapsedTime = timenow - gameWindow->lastTime;
-	gameWindow->lastTime = timenow;
+	Space::Instance()->elapsedTime = timenow - Space::Instance()->lastTime;
+	Space::Instance()->lastTime = timenow;
 	glutPostRedisplay();
 }
 
@@ -109,34 +78,34 @@ void KeyEvent(unsigned char key, int mouseX, int mouseY)
 		break;
 	case 'W':
 	case 'w':
-		gameWindow->rocket.DriveForward(true);
+		Space::Instance()->rocket.DriveForward(true);
 		break;
 	case 'A':
 	case 'a':
-		gameWindow->rocket.TurnLeft(true);
+		Space::Instance()->rocket.TurnLeft(true);
 		break;
 	case 'S':
 	case 's':
-		gameWindow->rocket.Brake(true);
+		Space::Instance()->rocket.Brake(true);
 		break;
 	case 'D':
 	case 'd':
-		gameWindow->rocket.TurnRight(true);
+		Space::Instance()->rocket.TurnRight(true);
 		break;
 	case 'Q':
 	case 'q':
-		gameWindow->rocket.Up(true);
+		Space::Instance()->rocket.Up(true);
 		break;
 	case 'Z':
 	case 'z':
-		gameWindow->rocket.Down(true);
+		Space::Instance()->rocket.Down(true);
 		break;
 	case 'M':
 	case 'm':
-		gameWindow->PlayMusic();
+		Space::Instance()->PlayMusic();
 		break;
 	case ' ':
-		gameWindow->rocket.Teleport();
+		Space::Instance()->rocket.Teleport();
 		break;
 	case 'F':
 	case 'f':
@@ -161,27 +130,27 @@ void KeyEventUp(unsigned char key, int width, int height)
 	{
 	case 'W':
 	case 'w':
-		gameWindow->rocket.DriveForward(false);
+		Space::Instance()->rocket.DriveForward(false);
 		break;
 	case 'A':
 	case 'a':
-		gameWindow->rocket.TurnLeft(false);
+		Space::Instance()->rocket.TurnLeft(false);
 		break;
 	case 'S':
 	case 's':
-		gameWindow->rocket.Brake(false);
+		Space::Instance()->rocket.Brake(false);
 		break;
 	case 'D':
 	case 'd':
-		gameWindow->rocket.TurnRight(false);
+		Space::Instance()->rocket.TurnRight(false);
 		break;
 	case 'Q':
 	case 'q':
-		gameWindow->rocket.Up(false);
+		Space::Instance()->rocket.Up(false);
 		break;
 	case 'Z':
 	case 'z':
-		gameWindow->rocket.Down(false);
+		Space::Instance()->rocket.Down(false);
 		break;
 	}
 }
@@ -201,8 +170,8 @@ void MouseEvent(int button, int state, int x, int y)
 	switch (button)
 	{
 	case GLUT_LEFT_BUTTON:
-		gameWindow->laser->Play();
-		gameWindow->lasers.push_back(gameWindow->rocket.Shoot());
+		Space::Instance()->laser->Play();
+		Space::Instance()->lasers.push_back(Space::Instance()->rocket.Shoot());
 		break;
 	}
 }
